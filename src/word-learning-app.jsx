@@ -213,7 +213,7 @@ const WordLearningApp = () => {
 
   // GitHub에서 CSV 불러오기
   const loadFromGitHub = async (mode = 'add') => {
-    const githubUsername = 'YOUR_GITHUB_USERNAME'; // GitHub 사용자명으로 교체 필요
+    const githubUsername = 'Ted-coGit'; // GitHub 사용자명으로 교체 필요
     const repoName = 'word-learning-app';
     
     const fileNames = {
