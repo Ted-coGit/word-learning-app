@@ -10,6 +10,152 @@
 
 ---
 
+## Version 0.2 (2025-01-25)
+
+### 개발 배경
+- 멀티 디바이스 환경에서 단어장 동기화 필요성 발생
+- 호경님이 "선생님" 역할로 아이들에게 단어 배포하는 시나리오
+- GitHub를 원본 소스로 활용한 중앙 관리 시스템 구현
+
+### 핵심 요구사항
+1. **GitHub 기반 중앙 관리**: CSV 파일을 GitHub에서 관리
+2. **멀티 디바이스 지원**: 태블릿, 아이폰 등 여러 기기에서 동일한 최신 단어 접근
+3. **원클릭 업데이트**: 새로고침 버튼으로 최신 단어 자동 다운로드
+4. **선택적 업데이트**: 기존 단어에 추가 vs 완전 교체
+
+### 추가 기능
+
+#### 1. GitHub CSV 자동 불러오기
+- GitHub repository의 `data/` 폴더에서 사용자별 CSV 파일 다운로드
+- 파일 경로: `https://raw.githubusercontent.com/Ted-coGit/word-learning-app/main/data/[사용자명].csv`
+- 중복 단어 자동 스킵 (추가 모드 시)
+
+#### 2. 새로고침 버튼 (🔄)
+- 메인 메뉴 상단에 "🔄 새로고침" 버튼 추가
+- 클릭 시 모드 선택 팝업:
+  - **확인**: 기존 단어에 추가 (중복 제외)
+  - **취소**: 완전히 새로 시작 (기존 단어 삭제)
+
+#### 3. 데이터 소스 이중화
+```
+로컬 데이터 (localStorage)
+    ↕️ 양방향
+GitHub 데이터 (중앙 저장소)
+```
+
+### 사용 시나리오
+
+#### 시나리오 1: 선생님 → 학생 배포
+```
+[밤 - 호경님]
+1. 엑셀에서 이번 주 단어 5개 작성
+2. "진성운.csv"로 저장
+3. GitHub data/ 폴더에 업로드
+
+[아침 - 진성운]
+1. 태블릿에서 앱 실행
+2. "진성운" 선택
+3. 🔄 새로고침 클릭
+4. 새 단어 자동 추가
+5. 학습 시작!
+```
+
+#### 시나리오 2: 멀티 디바이스
+```
+[진성운 태블릿]
+단어 학습 중
+
+[외출 - 호경님 아이폰]
+"진성운" 선택 → 새로고침
+→ 태블릿과 동일한 최신 단어로 학습
+```
+
+#### 시나리오 3: 주간 업데이트
+```
+[주말 - 호경님]
+1. 이번 주 틀린 단어 정리
+2. 복습 단어 추가한 CSV 생성
+3. GitHub 업로드
+4. 아이들이 새로고침하면 자동 업데이트
+```
+
+### 기술 구현
+
+#### GitHub Raw Content API
+```javascript
+const url = `https://raw.githubusercontent.com/${username}/${repo}/main/data/${filename}`;
+const response = await fetch(url);
+const csvText = await response.text();
+```
+
+#### 중복 체크 로직
+```javascript
+const isDuplicate = existingWords.some(
+  w => w.english.toLowerCase() === newWord.english.toLowerCase()
+);
+if (isDuplicate && mode === 'add') continue;
+```
+
+#### 모드 선택 UI
+```javascript
+const mode = window.confirm(
+  '확인 = 기존 단어에 추가\n' +
+  '취소 = 완전히 새로 시작'
+);
+loadFromGitHub(mode ? 'add' : 'replace');
+```
+
+### GitHub 파일 구조
+
+```
+word-learning-app/
+├── src/
+├── data/                    ← 새로 추가
+│   ├── 진호경.csv
+│   ├── 진성운.csv
+│   └── 진성율.csv
+└── README.md
+```
+
+### CSV 파일 형식 (변경 없음)
+
+```csv
+english,korean,type
+sunny,화창한,current
+cloudy,흐린,current
+apple,사과,review
+```
+
+### UI 변경사항
+
+**메뉴 화면 상단:**
+```
+이전: [📥 내보내기] [📤 불러오기]
+현재: [📥 내보내기] [📤 불러오기] [🔄 새로고침]
+```
+
+### 장점
+
+✅ **중앙 집중식 관리**: 한 곳(GitHub)에서 모든 단어 관리  
+✅ **멀티 디바이스 지원**: 어떤 기기에서든 동일한 최신 단어  
+✅ **자동 백업**: GitHub에 영구 보관  
+✅ **버전 관리**: GitHub의 commit 히스토리로 변경 추적  
+✅ **오프라인 학습**: 한 번 다운로드하면 오프라인 가능  
+
+### 제한사항
+
+⚠️ **인터넷 연결 필요**: 새로고침 시에만  
+⚠️ **수동 업데이트**: 자동 푸시 알림 없음 (아이들이 새로고침 버튼 클릭 필요)  
+⚠️ **Public Repository**: GitHub URL이 공개되어 있음 (개인정보 없음)  
+
+### 보안 고려사항
+
+- CSV 파일은 Public repository에 저장되므로 개인정보 포함 금지
+- 단어와 뜻만 저장 (이름, 연락처 등 개인정보 없음)
+- 학습 기록은 각 기기의 localStorage에만 저장
+
+---
+
 ## Version 0.1 (2025-01-25)
 
 ### 개발 배경
@@ -145,11 +291,13 @@ apple,사과,review
 - 해결: 사용자별 localStorage 키 분리
 
 ### 향후 개발 예정 기능 (보류)
+- [x] GitHub 연동 자동 불러오기 (ver 0.2 완료)
 - [ ] AI 자동 단어 뜻 채우기 (Anthropic API 활용)
 - [ ] 학습 통계 및 분석
 - [ ] 틀린 단어 자동 복습 큐
 - [ ] 학습 리마인더
 - [ ] 단어 이미지 추가
+- [ ] GitHub 자동 푸시 알림
 
 ---
 
@@ -225,6 +373,12 @@ word-learning-app/
 ---
 
 ## 개발 노트
+
+**2025-01-25 (ver 0.2)**
+- GitHub 연동 기능 추가
+- 새로고침 버튼으로 원클릭 업데이트
+- 멀티 디바이스 지원 완성
+- 중앙 집중식 단어장 관리 시스템 구축
 
 **2025-01-25 (ver 0.1)**
 - 기본 기능 완성
