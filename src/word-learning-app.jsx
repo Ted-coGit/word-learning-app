@@ -211,6 +211,103 @@ const WordLearningApp = () => {
     event.target.value = ''; // 같은 파일 다시 선택 가능하도록
   };
 
+  // GitHub에서 CSV 불러오기
+  const loadFromGitHub = async (mode = 'add') => {
+    const githubUsername = 'YOUR_GITHUB_USERNAME'; // GitHub 사용자명으로 교체 필요
+    const repoName = 'word-learning-app';
+    
+    const fileNames = {
+      'dad': '진호경.csv',
+      'sungwoon': '진성운.csv',
+      'sungryul': '진성율.csv'
+    };
+    
+    const fileName = fileNames[currentUser];
+    const url = `https://raw.githubusercontent.com/${githubUsername}/${repoName}/main/data/${fileName}`;
+    
+    try {
+      const response = await fetch(url);
+      
+      if (!response.ok) {
+        alert('GitHub에서 파일을 찾을 수 없습니다.\n파일이 업로드되어 있는지 확인해주세요.');
+        return;
+      }
+      
+      const text = await response.text();
+      const lines = text.split('\n').filter(line => line.trim());
+      
+      if (lines.length < 2) {
+        alert('CSV 파일이 비어있습니다!');
+        return;
+      }
+      
+      const headers = lines[0].toLowerCase().split(',').map(h => h.trim());
+      const englishIdx = headers.indexOf('english');
+      const koreanIdx = headers.indexOf('korean');
+      const typeIdx = headers.indexOf('type');
+      
+      if (englishIdx === -1 || koreanIdx === -1) {
+        alert('CSV 형식이 올바르지 않습니다!');
+        return;
+      }
+      
+      let newCurrentWords = mode === 'replace' ? [] : [...currentWords];
+      let newReviewWords = mode === 'replace' ? [] : [...reviewWords];
+      let importCount = 0;
+      
+      for (let i = 1; i < lines.length; i++) {
+        const values = lines[i].split(',').map(v => v.trim());
+        if (values.length < 2) continue;
+        
+        const english = values[englishIdx];
+        const korean = values[koreanIdx];
+        const type = typeIdx >= 0 ? values[typeIdx] : 'current';
+        
+        if (!english || !korean) continue;
+        
+        // 중복 체크
+        const isDuplicate = (type === 'review' ? newReviewWords : newCurrentWords)
+          .some(w => w.english.toLowerCase() === english.toLowerCase());
+        
+        if (isDuplicate && mode === 'add') continue;
+        
+        const word = {
+          id: Date.now() + i + Math.random(),
+          english,
+          korean
+        };
+        
+        if (type === 'review') {
+          newReviewWords.push(word);
+        } else {
+          newCurrentWords.push(word);
+        }
+        importCount++;
+      }
+      
+      saveCurrentWords(newCurrentWords);
+      saveReviewWords(newReviewWords);
+      
+      const modeText = mode === 'replace' ? '교체' : '추가';
+      alert(`✅ GitHub에서 ${importCount}개의 단어를 ${modeText}했습니다!`);
+      
+    } catch (error) {
+      alert('GitHub에서 파일을 불러오는 중 오류가 발생했습니다.\n인터넷 연결을 확인해주세요.');
+      console.error(error);
+    }
+  };
+
+  // GitHub 불러오기 모드 선택
+  const showGitHubLoadOptions = () => {
+    const mode = window.confirm(
+      '어떻게 불러올까요?\n\n' +
+      '확인 = 기존 단어에 추가\n' +
+      '취소 = 완전히 새로 시작 (기존 단어 삭제)'
+    );
+    
+    loadFromGitHub(mode ? 'add' : 'replace');
+  };
+
   // 발음 재생 (Web Speech API)
   const speakWord = (word) => {
     const utterance = new SpeechSynthesisUtterance(word);
@@ -464,15 +561,15 @@ const WordLearningApp = () => {
             </div>
 
             {/* CSV 내보내기/불러오기 버튼 */}
-            <div className="flex gap-3 mb-6">
+            <div className="grid grid-cols-3 gap-3 mb-6">
               <button
                 onClick={exportToCSV}
-                className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-3 rounded-xl hover:shadow-lg transition font-bold flex items-center justify-center gap-2"
+                className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-3 rounded-xl hover:shadow-lg transition font-bold flex items-center justify-center gap-2"
               >
-                📥 CSV 내보내기
+                📥 내보내기
               </button>
-              <label className="flex-1 bg-gradient-to-r from-blue-500 to-cyan-600 text-white px-6 py-3 rounded-xl hover:shadow-lg transition font-bold flex items-center justify-center gap-2 cursor-pointer">
-                📤 CSV 불러오기
+              <label className="bg-gradient-to-r from-blue-500 to-cyan-600 text-white px-4 py-3 rounded-xl hover:shadow-lg transition font-bold flex items-center justify-center gap-2 cursor-pointer">
+                📤 불러오기
                 <input
                   type="file"
                   accept=".csv"
@@ -480,6 +577,12 @@ const WordLearningApp = () => {
                   className="hidden"
                 />
               </label>
+              <button
+                onClick={showGitHubLoadOptions}
+                className="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-4 py-3 rounded-xl hover:shadow-lg transition font-bold flex items-center justify-center gap-2"
+              >
+                🔄 새로고침
+              </button>
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
