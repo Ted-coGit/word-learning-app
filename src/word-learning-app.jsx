@@ -11,6 +11,28 @@ const WordLearningApp = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [showUserSelect, setShowUserSelect] = useState(true);
   
+  // CSV 라인을 제대로 파싱하는 함수 (큰따옴표 처리)
+  const parseCSVLine = (line) => {
+    const result = [];
+    let current = '';
+    let inQuotes = false;
+    
+    for (let i = 0; i < line.length; i++) {
+      const char = line[i];
+      
+      if (char === '"') {
+        inQuotes = !inQuotes;
+      } else if (char === ',' && !inQuotes) {
+        result.push(current.trim());
+        current = '';
+      } else {
+        current += char;
+      }
+    }
+    result.push(current.trim());
+    return result;
+  };
+  
   const [currentWords, setCurrentWords] = useState([]); // 이번 주 단어
   const [reviewWords, setReviewWords] = useState([]); // 복습 단어
   const [newWord, setNewWord] = useState({ english: '', korean: '' });
@@ -159,7 +181,7 @@ const WordLearningApp = () => {
           return;
         }
         
-        const headers = lines[0].toLowerCase().split(',').map(h => h.trim());
+        const headers = parseCSVLine(lines[0].toLowerCase());
         const englishIdx = headers.indexOf('english');
         const koreanIdx = headers.indexOf('korean');
         const typeIdx = headers.indexOf('type');
@@ -174,7 +196,7 @@ const WordLearningApp = () => {
         let importCount = 0;
         
         for (let i = 1; i < lines.length; i++) {
-          const values = lines[i].split(',').map(v => v.trim());
+          const values = parseCSVLine(lines[i]);
           if (values.length < 2) continue;
           
           const english = values[englishIdx];
@@ -241,7 +263,7 @@ const WordLearningApp = () => {
         return;
       }
       
-      const headers = lines[0].toLowerCase().split(',').map(h => h.trim());
+      const headers = parseCSVLine(lines[0].toLowerCase());
       const englishIdx = headers.indexOf('english');
       const koreanIdx = headers.indexOf('korean');
       const typeIdx = headers.indexOf('type');
@@ -256,7 +278,7 @@ const WordLearningApp = () => {
       let importCount = 0;
       
       for (let i = 1; i < lines.length; i++) {
-        const values = lines[i].split(',').map(v => v.trim());
+        const values = parseCSVLine(lines[i]);
         if (values.length < 2) continue;
         
         const english = values[englishIdx];
