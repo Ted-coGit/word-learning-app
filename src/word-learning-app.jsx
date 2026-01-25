@@ -213,7 +213,7 @@ const WordLearningApp = () => {
 
   // GitHub에서 CSV 불러오기
   const loadFromGitHub = async (mode = 'add') => {
-    const githubUsername = 'Ted-coGit'; // GitHub 사용자명으로 교체 필요
+    const githubUsername = 'YOUR_GITHUB_USERNAME'; // GitHub 사용자명으로 교체 필요
     const repoName = 'word-learning-app';
     
     const fileNames = {
@@ -265,9 +265,12 @@ const WordLearningApp = () => {
         
         if (!english || !korean) continue;
         
-        // 중복 체크
-        const isDuplicate = (type === 'review' ? newReviewWords : newCurrentWords)
+        // 중복 체크 - 이번 주 단어와 복습 단어 전체에서 확인
+        const isDuplicateInCurrent = newCurrentWords
           .some(w => w.english.toLowerCase() === english.toLowerCase());
+        const isDuplicateInReview = newReviewWords
+          .some(w => w.english.toLowerCase() === english.toLowerCase());
+        const isDuplicate = isDuplicateInCurrent || isDuplicateInReview;
         
         if (isDuplicate && mode === 'add') continue;
         
