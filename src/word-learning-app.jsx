@@ -415,9 +415,9 @@ const WordLearningApp = () => {
     const repoName = 'word-learning-app';
     
     const fileNames = {
-      'dad': '진호경.csv',
-      'sungwoon': '진성운.csv',
-      'sungryul': '진성율.csv'
+      'dad': 'dad.csv',
+      'sungwoon': 'sungwoon.csv',
+      'sungryul': 'sungryul.csv'
     };
     
     const fileName = fileNames[currentUser];
