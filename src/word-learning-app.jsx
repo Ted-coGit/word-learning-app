@@ -228,7 +228,7 @@ const WordLearningApp = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': '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', // 여기에 API 키 입력
+          'x-api-key': 'API KEY', // 여기에 API 키 입력
           'anthropic-version': '2023-06-01'
         },
         body: JSON.stringify({
