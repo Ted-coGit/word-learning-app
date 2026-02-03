@@ -208,27 +208,12 @@ const WordLearningApp = () => {
     setLoadingCardData(true);
     
     try {
-      // Mock 데이터로 테스트 (나중에 실제 API로 교체)
-      await new Promise(resolve => setTimeout(resolve, 1000)); // 1초 대기 (로딩 시뮬레이션)
-      
-      const mockData = {
-        partOfSpeech: '형용사',
-        phonetic: '/ˈsʌni/',
-        meanings: ['햇빛이 비치는', '밝고 명랑한', '낙관적인'],
-        examples: [
-          { english: 'It\'s a sunny day.', korean: '화창한 날이에요.' },
-          { english: 'She has a sunny personality.', korean: '그녀는 밝은 성격을 가졌어요.' }
-        ]
-      };
-      
-      setWordCardData(mockData);
-      
-      /* 실제 API 연동 코드 (나중에 활성화)
+      // Vercel 환경 변수에서 API 키 가져오기
       const response = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': 'API KEY', // 여기에 API 키 입력
+          'x-api-key': import.meta.env.VITE_ANTHROPIC_API_KEY,
           'anthropic-version': '2023-06-01'
         },
         body: JSON.stringify({
@@ -260,16 +245,12 @@ const WordLearningApp = () => {
       
       if (data.content && data.content[0] && data.content[0].text) {
         let jsonText = data.content[0].text;
-        
-        // JSON 블록에서 내용만 추출
         jsonText = jsonText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
-        
         const wordData = JSON.parse(jsonText);
         setWordCardData(wordData);
       } else {
         throw new Error('응답 형식 오류');
       }
-      */
     } catch (error) {
       console.error('단어 정보 가져오기 실패:', error);
       setWordCardData({
@@ -415,7 +396,7 @@ const WordLearningApp = () => {
 
   // GitHub에서 CSV 불러오기
   const loadFromGitHub = async (mode = 'add') => {
-    const githubUsername = 'Ted-coGit'; // GitHub 사용자명으로 교체 필요
+    const githubUsername = 'YOUR_GITHUB_USERNAME'; // GitHub 사용자명으로 교체 필요
     const repoName = 'word-learning-app';
     
     const fileNames = {
