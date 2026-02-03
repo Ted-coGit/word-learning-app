@@ -38,6 +38,7 @@ const WordLearningApp = () => {
   const [newWord, setNewWord] = useState({ english: '', korean: '' });
   const [gameMode, setGameMode] = useState('menu'); // menu, matching, spelling
   const [sessionType, setSessionType] = useState('current'); // current, review
+  const [gameWords, setGameWords] = useState([]); // 게임용 단어 리스트 (셔플 + 20개 제한)
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [userAnswer, setUserAnswer] = useState('');
   const [score, setScore] = useState(0);
@@ -190,6 +191,7 @@ const WordLearningApp = () => {
 
   // 단어 카드 열기
   const openWordCard = async (word, wordList) => {
+    console.log('단어 카드 열기:', word); // 디버깅용
     setSelectedWord(word);
     setCardWordList(wordList);
     setCurrentCardIndex(wordList.findIndex(w => w.id === word.id));
@@ -561,6 +563,11 @@ const WordLearningApp = () => {
       return;
     }
     
+    // 단어 셔플 + 최대 20개 제한
+    const shuffledWords = [...wordsToUse].sort(() => Math.random() - 0.5);
+    const limitedWords = shuffledWords.slice(0, 20);
+    setGameWords(limitedWords);
+    
     setSessionType(session);
     setGameMode(mode);
     setCurrentWordIndex(0);
@@ -570,13 +577,13 @@ const WordLearningApp = () => {
     setShowFeedback(false);
     
     if (mode === 'matching') {
-      generateMatchingOptions(0, wordsToUse);
+      generateMatchingOptions(0, limitedWords);
     }
   };
 
   // 짝맞추기 옵션 생성
   const generateMatchingOptions = (wordIndex, wordsArray) => {
-    const words = wordsArray || (sessionType === 'current' ? currentWords : reviewWords);
+    const words = wordsArray || gameWords;
     const currentWord = words[wordIndex];
     const otherWords = words.filter((_, i) => i !== wordIndex);
     const shuffled = [...otherWords].sort(() => Math.random() - 0.5).slice(0, 3);
@@ -586,7 +593,7 @@ const WordLearningApp = () => {
 
   // 짝맞추기 정답 확인
   const checkMatching = (selectedWord) => {
-    const words = sessionType === 'current' ? currentWords : reviewWords;
+    const words = gameWords;
     const currentWord = words[currentWordIndex];
     const isCorrect = selectedWord.id === currentWord.id;
     
@@ -623,7 +630,7 @@ const WordLearningApp = () => {
 
   // 스펠링 정답 확인
   const checkSpelling = () => {
-    const words = sessionType === 'current' ? currentWords : reviewWords;
+    const words = gameWords;
     const currentWord = words[currentWordIndex];
     const isCorrect = userAnswer.toLowerCase().trim() === currentWord.english.toLowerCase().trim();
     
@@ -1004,17 +1011,28 @@ const WordLearningApp = () => {
 
   // 짝맞추기 게임
   if (gameMode === 'matching') {
-    const words = sessionType === 'current' ? currentWords : reviewWords;
+    const words = gameWords;
     const currentWord = words[currentWordIndex];
     const sessionTitle = sessionType === 'current' ? '이번 주 단어' : '복습 단어';
     
     return (
       <div className="min-h-screen bg-gradient-to-br from-green-400 to-blue-500 p-8 flex items-center justify-center">
         <div className="bg-white rounded-3xl shadow-2xl p-12 max-w-2xl w-full">
-          <div className="text-center mb-8">
-            <div className="text-lg text-purple-600 mb-2 font-bold">
+          {/* 헤더 + 뒤로가기 버튼 */}
+          <div className="flex justify-between items-center mb-8">
+            <button
+              onClick={() => setGameMode('menu')}
+              className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition font-bold"
+            >
+              ← 뒤로가기
+            </button>
+            <div className="text-lg text-purple-600 font-bold">
               {sessionTitle} - 짝맞추기
             </div>
+            <div className="w-24"></div> {/* 균형 맞추기용 */}
+          </div>
+
+          <div className="text-center mb-8">
             <div className="text-xl text-gray-600 mb-2">
               문제 {currentWordIndex + 1} / {words.length}
             </div>
@@ -1074,17 +1092,28 @@ const WordLearningApp = () => {
 
   // 스펠링 쓰기 게임
   if (gameMode === 'spelling') {
-    const words = sessionType === 'current' ? currentWords : reviewWords;
+    const words = gameWords;
     const currentWord = words[currentWordIndex];
     const sessionTitle = sessionType === 'current' ? '이번 주 단어' : '복습 단어';
     
     return (
       <div className="min-h-screen bg-gradient-to-br from-purple-400 to-pink-500 p-8 flex items-center justify-center">
         <div className="bg-white rounded-3xl shadow-2xl p-12 max-w-2xl w-full">
-          <div className="text-center mb-8">
-            <div className="text-lg text-orange-600 mb-2 font-bold">
+          {/* 헤더 + 뒤로가기 버튼 */}
+          <div className="flex justify-between items-center mb-8">
+            <button
+              onClick={() => setGameMode('menu')}
+              className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition font-bold"
+            >
+              ← 뒤로가기
+            </button>
+            <div className="text-lg text-orange-600 font-bold">
               {sessionTitle} - 스펠링 쓰기
             </div>
+            <div className="w-24"></div> {/* 균형 맞추기용 */}
+          </div>
+
+          <div className="text-center mb-8">
             <div className="text-xl text-gray-600 mb-2">
               문제 {currentWordIndex + 1} / {words.length}
             </div>
