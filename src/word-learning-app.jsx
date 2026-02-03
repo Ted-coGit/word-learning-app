@@ -192,10 +192,12 @@ const WordLearningApp = () => {
   // 단어 카드 열기
   const openWordCard = async (word, wordList) => {
     console.log('단어 카드 열기:', word); // 디버깅용
+    console.log('wordList:', wordList); // 디버깅용
     setSelectedWord(word);
     setCardWordList(wordList);
     setCurrentCardIndex(wordList.findIndex(w => w.id === word.id));
     setShowWordCard(true);
+    console.log('showWordCard를 true로 설정함'); // 디버깅용
     
     // AI로 단어 상세 정보 가져오기
     await fetchWordDetails(word);
@@ -226,7 +228,7 @@ const WordLearningApp = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': 'YOUR_API_KEY_HERE', // 여기에 API 키 입력
+          'x-api-key': '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', // 여기에 API 키 입력
           'anthropic-version': '2023-06-01'
         },
         body: JSON.stringify({
@@ -701,6 +703,118 @@ const WordLearningApp = () => {
       </div>
     );
   };
+
+  // ========== 렌더링 ==========
+  
+  // 단어 카드 (최우선)
+  if (showWordCard && selectedWord) {
+    console.log('단어 카드 렌더링 시작!'); // 디버깅
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 p-4">
+        <div className="max-w-2xl mx-auto">
+          {/* 헤더 */}
+          <div className="flex justify-between items-center mb-4">
+            <button
+              onClick={closeWordCard}
+              className="bg-white px-4 py-2 rounded-lg shadow hover:shadow-md transition font-bold text-gray-700"
+            >
+              ← 뒤로가기
+            </button>
+            <div className="text-sm text-gray-600">
+              {currentCardIndex + 1} / {cardWordList.length}
+            </div>
+          </div>
+
+          {/* 단어 카드 */}
+          <div className="bg-white rounded-2xl shadow-xl p-8">
+            {/* 단어 제목 */}
+            <div className="text-center mb-6">
+              <div className="flex items-center justify-center gap-4 mb-2">
+                <h1 className="text-4xl font-bold text-gray-800">{selectedWord.english}</h1>
+                <button
+                  onClick={() => speakWord(selectedWord.english)}
+                  className="text-blue-500 hover:text-blue-600"
+                >
+                  <Volume2 className="w-8 h-8" />
+                </button>
+              </div>
+              <p className="text-xl text-gray-600">{selectedWord.korean}</p>
+            </div>
+
+            {/* 로딩 중 */}
+            {loadingCardData && (
+              <div className="text-center py-8">
+                <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+                <p className="mt-4 text-gray-600">단어 정보를 불러오는 중...</p>
+              </div>
+            )}
+
+            {/* 단어 상세 정보 */}
+            {!loadingCardData && wordCardData && (
+              <div className="space-y-6">
+                {/* 품사 */}
+                <div>
+                  <h3 className="text-sm font-bold text-gray-500 mb-2">품사</h3>
+                  <p className="text-lg text-gray-800">{wordCardData.partOfSpeech}</p>
+                </div>
+
+                {/* 발음기호 */}
+                {wordCardData.phonetic && (
+                  <div>
+                    <h3 className="text-sm font-bold text-gray-500 mb-2">발음</h3>
+                    <p className="text-lg text-gray-800 font-mono">{wordCardData.phonetic}</p>
+                  </div>
+                )}
+
+                {/* 뜻 */}
+                <div>
+                  <h3 className="text-sm font-bold text-gray-500 mb-2">뜻</h3>
+                  <ul className="list-disc list-inside space-y-1">
+                    {wordCardData.meanings.map((meaning, idx) => (
+                      <li key={idx} className="text-lg text-gray-800">{meaning}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* 예문 */}
+                {wordCardData.examples && wordCardData.examples.length > 0 && (
+                  <div>
+                    <h3 className="text-sm font-bold text-gray-500 mb-2">예문</h3>
+                    <div className="space-y-3">
+                      {wordCardData.examples.map((example, idx) => (
+                        <div key={idx} className="bg-gray-50 p-3 rounded-lg">
+                          <p className="text-gray-800 mb-1">{example.english}</p>
+                          <p className="text-sm text-gray-600">{example.korean}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* 네비게이션 버튼 */}
+          <div className="flex justify-between items-center mt-6">
+            <button
+              onClick={goToPrevCard}
+              disabled={currentCardIndex === 0}
+              className="bg-white px-6 py-3 rounded-lg shadow hover:shadow-md transition font-bold text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              ← 이전 단어
+            </button>
+            <button
+              onClick={goToNextCard}
+              disabled={currentCardIndex === cardWordList.length - 1}
+              className="bg-white px-6 py-3 rounded-lg shadow hover:shadow-md transition font-bold text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              다음 단어 →
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // 사용자 선택 화면
   if (showUserSelect) {
@@ -1181,115 +1295,6 @@ const WordLearningApp = () => {
               )}
             </div>
           )}
-        </div>
-      </div>
-    );
-  }
-
-  // 단어 카드 렌더링
-  if (showWordCard && selectedWord) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 p-4">
-        <div className="max-w-2xl mx-auto">
-          {/* 헤더 */}
-          <div className="flex justify-between items-center mb-4">
-            <button
-              onClick={closeWordCard}
-              className="bg-white px-4 py-2 rounded-lg shadow hover:shadow-md transition font-bold text-gray-700"
-            >
-              ← 뒤로가기
-            </button>
-            <div className="text-sm text-gray-600">
-              {currentCardIndex + 1} / {cardWordList.length}
-            </div>
-          </div>
-
-          {/* 단어 카드 */}
-          <div className="bg-white rounded-2xl shadow-xl p-8">
-            {/* 단어 제목 */}
-            <div className="text-center mb-6">
-              <div className="flex items-center justify-center gap-4 mb-2">
-                <h1 className="text-4xl font-bold text-gray-800">{selectedWord.english}</h1>
-                <button
-                  onClick={() => speakWord(selectedWord.english)}
-                  className="text-blue-500 hover:text-blue-600"
-                >
-                  <Volume2 className="w-8 h-8" />
-                </button>
-              </div>
-              <p className="text-xl text-gray-600">{selectedWord.korean}</p>
-            </div>
-
-            {/* 로딩 중 */}
-            {loadingCardData && (
-              <div className="text-center py-8">
-                <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
-                <p className="mt-4 text-gray-600">단어 정보를 불러오는 중...</p>
-              </div>
-            )}
-
-            {/* 단어 상세 정보 */}
-            {!loadingCardData && wordCardData && (
-              <div className="space-y-6">
-                {/* 품사 */}
-                <div>
-                  <h3 className="text-sm font-bold text-gray-500 mb-2">품사</h3>
-                  <p className="text-lg text-gray-800">{wordCardData.partOfSpeech}</p>
-                </div>
-
-                {/* 발음기호 */}
-                {wordCardData.phonetic && (
-                  <div>
-                    <h3 className="text-sm font-bold text-gray-500 mb-2">발음</h3>
-                    <p className="text-lg text-gray-800 font-mono">{wordCardData.phonetic}</p>
-                  </div>
-                )}
-
-                {/* 뜻 */}
-                <div>
-                  <h3 className="text-sm font-bold text-gray-500 mb-2">뜻</h3>
-                  <ul className="list-disc list-inside space-y-1">
-                    {wordCardData.meanings.map((meaning, idx) => (
-                      <li key={idx} className="text-lg text-gray-800">{meaning}</li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* 예문 */}
-                {wordCardData.examples && wordCardData.examples.length > 0 && (
-                  <div>
-                    <h3 className="text-sm font-bold text-gray-500 mb-2">예문</h3>
-                    <div className="space-y-3">
-                      {wordCardData.examples.map((example, idx) => (
-                        <div key={idx} className="bg-gray-50 p-3 rounded-lg">
-                          <p className="text-gray-800 mb-1">{example.english}</p>
-                          <p className="text-sm text-gray-600">{example.korean}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-
-          {/* 네비게이션 버튼 */}
-          <div className="flex justify-between items-center mt-6">
-            <button
-              onClick={goToPrevCard}
-              disabled={currentCardIndex === 0}
-              className="bg-white px-6 py-3 rounded-lg shadow hover:shadow-md transition font-bold text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              ← 이전 단어
-            </button>
-            <button
-              onClick={goToNextCard}
-              disabled={currentCardIndex === cardWordList.length - 1}
-              className="bg-white px-6 py-3 rounded-lg shadow hover:shadow-md transition font-bold text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              다음 단어 →
-            </button>
-          </div>
         </div>
       </div>
     );
