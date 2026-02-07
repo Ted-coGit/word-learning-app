@@ -660,7 +660,7 @@ const WordLearningApp = () => {
     }
     
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-purple-400 to-pink-400 p-8">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-cyan-400 to-teal-400 p-8">
         <div className="bg-white rounded-3xl shadow-2xl p-12 max-w-md w-full text-center">
           <Award className="w-24 h-24 mx-auto mb-6 text-yellow-500" />
           <h2 className="text-4xl font-bold mb-4 text-gray-800">{message}</h2>
@@ -796,7 +796,7 @@ const WordLearningApp = () => {
   // 사용자 선택 화면
   if (showUserSelect) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-400 via-pink-400 to-blue-400 p-8 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-cyan-400 via-teal-400 to-blue-400 p-8 flex items-center justify-center">
         <div className="bg-white rounded-3xl shadow-2xl p-12 max-w-2xl w-full">
           <h1 className="text-5xl font-bold text-center mb-4 text-purple-600">
             🎓 영단어 학습 친구
@@ -834,12 +834,12 @@ const WordLearningApp = () => {
   // 메뉴 화면
   if (gameMode === 'menu') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-400 to-purple-500 p-8">
+      <div className="min-h-screen bg-gradient-to-br from-cyan-400 to-blue-500 p-4 md:p-8">
         <div className="max-w-6xl mx-auto">
-          <div className="bg-white rounded-3xl shadow-2xl p-8 mb-8">
+          <div className="bg-white rounded-2xl md:rounded-3xl shadow-2xl p-4 md:p-8 mb-4 md:mb-8">
             {/* 헤더 - 사용자 정보 및 전환 버튼 */}
             <div className="flex justify-between items-center mb-6">
-              <h1 className="text-4xl font-bold text-purple-600">
+              <h1 className="text-3xl md:text-4xl font-bold text-teal-600">
                 🎓 영단어 학습 친구
               </h1>
               <div className="flex items-center gap-4">
@@ -878,7 +878,7 @@ const WordLearningApp = () => {
               </label>
               <button
                 onClick={showGitHubLoadOptions}
-                className="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-4 py-3 rounded-xl hover:shadow-lg transition font-bold flex items-center justify-center gap-2"
+                className="bg-gradient-to-r from-cyan-500 to-teal-600 text-white px-4 py-3 rounded-xl hover:shadow-lg transition font-bold flex items-center justify-center gap-2"
               >
                 🔄 새로고침
               </button>
@@ -886,8 +886,8 @@ const WordLearningApp = () => {
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* 이번 주 단어 섹션 */}
-              <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-2xl p-6">
-                <h2 className="text-3xl font-bold mb-4 text-green-600 flex items-center gap-2">
+              <div className="bg-gradient-to-br from-cyan-50 to-teal-50 rounded-xl md:rounded-2xl p-4 md:p-6">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4 text-teal-600 flex items-center gap-2">
                   📚 이번 주 단어
                 </h2>
                 
@@ -899,7 +899,7 @@ const WordLearningApp = () => {
                       placeholder="영어 (예: sunny)"
                       value={newWord.english}
                       onChange={(e) => setNewWord({ ...newWord, english: e.target.value })}
-                      className="w-full px-4 py-3 border-2 border-green-300 rounded-xl text-lg focus:outline-none focus:border-green-500"
+                      className="w-full px-4 py-3 border-2 border-cyan-300 rounded-xl text-base md:text-lg focus:outline-none focus:border-cyan-500 touch-manipulation"
                       onKeyPress={(e) => e.key === 'Enter' && document.querySelector('input[placeholder*="뜻"]').focus()}
                     />
                     <input
@@ -907,12 +907,12 @@ const WordLearningApp = () => {
                       placeholder="뜻 (예: 화창한)"
                       value={newWord.korean}
                       onChange={(e) => setNewWord({ ...newWord, korean: e.target.value })}
-                      className="w-full px-4 py-3 border-2 border-green-300 rounded-xl text-lg focus:outline-none focus:border-green-500"
+                      className="w-full px-4 py-3 border-2 border-cyan-300 rounded-xl text-base md:text-lg focus:outline-none focus:border-cyan-500 touch-manipulation"
                       onKeyPress={(e) => e.key === 'Enter' && addWord()}
                     />
                     <button
                       onClick={addWord}
-                      className="w-full bg-green-500 text-white px-6 py-3 rounded-xl hover:bg-green-600 transition font-bold text-lg flex items-center justify-center gap-2"
+                      className="w-full bg-teal-500 text-white px-6 py-3 rounded-xl hover:bg-teal-600 transition font-bold text-base md:text-lg flex items-center justify-center gap-2 touch-manipulation"
                     >
                       <Plus className="w-5 h-5" />
                       단어 추가하기
@@ -1004,8 +1004,8 @@ const WordLearningApp = () => {
               </div>
 
               {/* 복습 단어 섹션 */}
-              <div className="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-2xl p-6">
-                <h2 className="text-3xl font-bold mb-4 text-orange-600 flex items-center gap-2">
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl md:rounded-2xl p-4 md:p-6">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4 text-blue-600 flex items-center gap-2">
                   🔄 복습 단어
                 </h2>
                 
@@ -1188,7 +1188,7 @@ const WordLearningApp = () => {
     const sessionTitle = sessionType === 'current' ? '이번 주 단어' : '복습 단어';
     
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-400 to-pink-500 p-8 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-cyan-400 to-teal-500 p-8 flex items-center justify-center">
         <div className="bg-white rounded-3xl shadow-2xl p-12 max-w-2xl w-full">
           {/* 헤더 + 뒤로가기 버튼 */}
           <div className="flex justify-between items-center mb-8">
