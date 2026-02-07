@@ -208,49 +208,17 @@ const WordLearningApp = () => {
     setLoadingCardData(true);
     
     try {
-      // Vercel 환경 변수에서 API 키 가져오기
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': import.meta.env.VITE_ANTHROPIC_API_KEY,
-          'anthropic-version': '2023-06-01'
-        },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 1000,
-          messages: [
-            {
-              role: 'user',
-              content: `영어 단어 "${word.english}"에 대한 정보를 JSON 형식으로 제공해주세요.
-
-응답 형식 (JSON만 출력, 다른 텍스트 없이):
-{
-  "partOfSpeech": "품사 (명사, 동사, 형용사 등)",
-  "phonetic": "발음기호 (IPA 형식)",
-  "meanings": ["뜻1", "뜻2", "뜻3"],
-  "examples": [
-    {"english": "예문1", "korean": "해석1"},
-    {"english": "예문2", "korean": "해석2"}
-  ]
-}
-
-초등학생이 이해하기 쉽게 설명해주세요.`
-            }
-          ]
-        })
-      });
-
-      const data = await response.json();
+      // CSV에서 로드한 데이터를 그대로 사용
+      await new Promise(resolve => setTimeout(resolve, 300)); // 약간의 딜레이 (UX)
       
-      if (data.content && data.content[0] && data.content[0].text) {
-        let jsonText = data.content[0].text;
-        jsonText = jsonText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
-        const wordData = JSON.parse(jsonText);
-        setWordCardData(wordData);
-      } else {
-        throw new Error('응답 형식 오류');
-      }
+      const wordData = {
+        partOfSpeech: word.partOfSpeech || '정보 없음',
+        phonetic: word.phonetic || '',
+        meanings: word.meanings || [word.korean],
+        examples: word.examples || []
+      };
+      
+      setWordCardData(wordData);
     } catch (error) {
       console.error('단어 정보 가져오기 실패:', error);
       setWordCardData({
@@ -396,7 +364,7 @@ const WordLearningApp = () => {
 
   // GitHub에서 CSV 불러오기
   const loadFromGitHub = async (mode = 'add') => {
-    const githubUsername = 'Ted-coGit'; // GitHub 사용자명으로 교체 필요
+    const githubUsername = 'Ted-coGit'; // GitHub 사용자명
     const repoName = 'word-learning-app';
     
     const fileNames = {
@@ -427,7 +395,14 @@ const WordLearningApp = () => {
       const headers = parseCSVLine(lines[0].toLowerCase());
       const englishIdx = headers.indexOf('english');
       const koreanIdx = headers.indexOf('korean');
-      const typeIdx = headers.indexOf('type');
+      const partOfSpeechIdx = headers.indexOf('partofspeech');
+      const phoneticIdx = headers.indexOf('phonetic');
+      const meaningsIdx = headers.indexOf('meanings');
+      const example1EnIdx = headers.indexOf('example1_en');
+      const example1KoIdx = headers.indexOf('example1_ko');
+      const example2EnIdx = headers.indexOf('example2_en');
+      const example2KoIdx = headers.indexOf('example2_ko');
+      const statusIdx = headers.indexOf('status');
       
       if (englishIdx === -1 || koreanIdx === -1) {
         alert('CSV 형식이 올바르지 않습니다!');
@@ -444,11 +419,18 @@ const WordLearningApp = () => {
         
         const english = values[englishIdx];
         const korean = values[koreanIdx];
-        const type = typeIdx >= 0 ? values[typeIdx] : 'current';
+        const partOfSpeech = partOfSpeechIdx >= 0 ? values[partOfSpeechIdx] : '';
+        const phonetic = phoneticIdx >= 0 ? values[phoneticIdx] : '';
+        const meanings = meaningsIdx >= 0 ? values[meaningsIdx].split('|') : [korean];
+        const example1_en = example1EnIdx >= 0 ? values[example1EnIdx] : '';
+        const example1_ko = example1KoIdx >= 0 ? values[example1KoIdx] : '';
+        const example2_en = example2EnIdx >= 0 ? values[example2EnIdx] : '';
+        const example2_ko = example2KoIdx >= 0 ? values[example2KoIdx] : '';
+        const status = statusIdx >= 0 ? values[statusIdx] : 'current';
         
         if (!english || !korean) continue;
         
-        // 중복 체크 - 이번 주 단어와 복습 단어 전체에서 확인
+        // 중복 체크
         const isDuplicateInCurrent = newCurrentWords
           .some(w => w.english.toLowerCase() === english.toLowerCase());
         const isDuplicateInReview = newReviewWords
@@ -460,10 +442,17 @@ const WordLearningApp = () => {
         const word = {
           id: Date.now() + i + Math.random(),
           english,
-          korean
+          korean,
+          partOfSpeech,
+          phonetic,
+          meanings,
+          examples: [
+            { english: example1_en, korean: example1_ko },
+            { english: example2_en, korean: example2_ko }
+          ].filter(ex => ex.english && ex.korean)
         };
         
-        if (type === 'review') {
+        if (status === 'review') {
           newReviewWords.push(word);
         } else {
           newCurrentWords.push(word);
