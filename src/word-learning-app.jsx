@@ -796,29 +796,29 @@ const WordLearningApp = () => {
   // 사용자 선택 화면
   if (showUserSelect) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-cyan-400 via-teal-400 to-blue-400 p-8 flex items-center justify-center">
-        <div className="bg-white rounded-3xl shadow-2xl p-12 max-w-2xl w-full">
-          <h1 className="text-5xl font-bold text-center mb-4 text-purple-600">
+      <div className="min-h-screen bg-gradient-to-br from-cyan-400 via-teal-400 to-blue-400 p-4 md:p-8 flex items-center justify-center">
+        <div className="bg-white rounded-2xl md:rounded-3xl shadow-2xl p-6 md:p-12 max-w-2xl w-full">
+          <h1 className="text-3xl md:text-5xl font-bold text-center mb-3 md:mb-4 text-teal-600">
             🎓 영단어 학습 친구
           </h1>
-          <p className="text-center text-gray-600 mb-12 text-xl">
+          <p className="text-center text-gray-600 mb-8 md:mb-12 text-base md:text-xl">
             누가 공부할까요?
           </p>
           
-          <div className="space-y-4">
+          <div className="space-y-3 md:space-y-4">
             {users.map((user) => (
               <button
                 key={user.id}
                 onClick={() => selectUser(user.id)}
-                className={`w-full p-8 rounded-2xl border-4 hover:scale-105 transform transition shadow-lg bg-gradient-to-r ${
+                className={`w-full p-6 md:p-8 rounded-xl md:rounded-2xl border-4 hover:scale-105 transform transition shadow-lg bg-gradient-to-r touch-manipulation ${
                   user.color === 'blue' ? 'from-blue-400 to-blue-600 border-blue-300' :
                   user.color === 'green' ? 'from-green-400 to-green-600 border-green-300' :
                   'from-orange-400 to-orange-600 border-orange-300'
                 }`}
               >
-                <div className="flex items-center justify-center gap-6">
-                  <span className="text-7xl">{user.emoji}</span>
-                  <span className="text-4xl font-bold text-white">{user.name}</span>
+                <div className="flex items-center justify-center gap-4 md:gap-6">
+                  <span className="text-5xl md:text-7xl flex-shrink-0">{user.emoji}</span>
+                  <span className="text-2xl md:text-4xl font-bold text-white whitespace-nowrap">{user.name}</span>
                 </div>
               </button>
             ))}
@@ -837,38 +837,42 @@ const WordLearningApp = () => {
       <div className="min-h-screen bg-gradient-to-br from-cyan-400 to-blue-500 p-4 md:p-8">
         <div className="max-w-6xl mx-auto">
           <div className="bg-white rounded-2xl md:rounded-3xl shadow-2xl p-4 md:p-8 mb-4 md:mb-8">
-            {/* 헤더 - 사용자 정보 및 전환 버튼 */}
-            <div className="flex justify-between items-center mb-6">
-              <h1 className="text-3xl md:text-4xl font-bold text-teal-600">
-                🎓 영단어 학습 친구
-              </h1>
-              <div className="flex items-center gap-4">
-                <div className={`px-6 py-3 rounded-full font-bold text-white text-xl bg-gradient-to-r ${
+            {/* 헤더 - 타이틀 센터, 사용자 전환 우측 상단 */}
+            <div className="relative mb-6 md:mb-8">
+              {/* 사용자 전환 버튼 - 우측 상단 */}
+              <button
+                onClick={switchUser}
+                className="absolute top-0 right-0 bg-gray-400 hover:bg-gray-500 text-white px-3 py-2 md:px-4 md:py-2 rounded-full transition text-xs md:text-sm font-medium"
+              >
+                전환
+              </button>
+              
+              {/* 타이틀 - 센터 정렬 */}
+              <div className="text-center pt-2">
+                <h1 className="text-2xl md:text-4xl font-bold text-teal-600 mb-2">
+                  🎓 영단어 학습 친구
+                </h1>
+                <div className={`inline-block px-6 py-2 md:px-8 md:py-3 rounded-full font-bold text-white text-lg md:text-xl bg-gradient-to-r ${
                   currentUserInfo.color === 'blue' ? 'from-blue-400 to-blue-600' :
                   currentUserInfo.color === 'green' ? 'from-green-400 to-green-600' :
                   'from-orange-400 to-orange-600'
                 }`}>
                   {currentUserInfo.emoji} {currentUserInfo.name}
                 </div>
-                <button
-                  onClick={switchUser}
-                  className="bg-gray-500 text-white px-4 py-3 rounded-full hover:bg-gray-600 transition font-bold"
-                >
-                  사용자 전환
-                </button>
               </div>
             </div>
 
-            {/* CSV 내보내기/불러오기 버튼 */}
-            <div className="grid grid-cols-3 gap-3 mb-6">
+            {/* CSV 내보내기/불러오기 버튼 - 아이콘만 */}
+            <div className="flex justify-center gap-3 md:gap-4 mb-6 md:mb-8">
               <button
                 onClick={exportToCSV}
-                className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-3 rounded-xl hover:shadow-lg transition font-bold flex items-center justify-center gap-2"
+                className="bg-gradient-to-r from-teal-500 to-cyan-600 text-white p-4 md:p-5 rounded-xl hover:shadow-lg transition flex items-center justify-center touch-manipulation"
+                title="내보내기"
               >
-                📥 내보내기
+                <span className="text-2xl md:text-3xl">📥</span>
               </button>
-              <label className="bg-gradient-to-r from-blue-500 to-cyan-600 text-white px-4 py-3 rounded-xl hover:shadow-lg transition font-bold flex items-center justify-center gap-2 cursor-pointer">
-                📤 불러오기
+              <label className="bg-gradient-to-r from-blue-500 to-cyan-600 text-white p-4 md:p-5 rounded-xl hover:shadow-lg transition flex items-center justify-center cursor-pointer touch-manipulation" title="불러오기">
+                <span className="text-2xl md:text-3xl">📤</span>
                 <input
                   type="file"
                   accept=".csv"
@@ -878,9 +882,10 @@ const WordLearningApp = () => {
               </label>
               <button
                 onClick={showGitHubLoadOptions}
-                className="bg-gradient-to-r from-cyan-500 to-teal-600 text-white px-4 py-3 rounded-xl hover:shadow-lg transition font-bold flex items-center justify-center gap-2"
+                className="bg-gradient-to-r from-cyan-500 to-teal-600 text-white p-4 md:p-5 rounded-xl hover:shadow-lg transition flex items-center justify-center touch-manipulation"
+                title="새로고침"
               >
-                🔄 새로고침
+                <span className="text-2xl md:text-3xl">🔄</span>
               </button>
             </div>
             
@@ -984,20 +989,20 @@ const WordLearningApp = () => {
                   <button
                     onClick={() => startGame('matching', 'current')}
                     disabled={currentWords.length < 4}
-                    className="bg-gradient-to-r from-green-400 to-blue-500 text-white p-6 rounded-xl hover:shadow-lg transform hover:scale-105 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="bg-gradient-to-r from-green-400 to-blue-500 text-white p-4 md:p-6 rounded-xl hover:shadow-lg transform hover:scale-105 transition disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
                   >
-                    <Book className="w-10 h-10 mx-auto mb-2" />
-                    <div className="text-xl font-bold">짝맞추기</div>
+                    <Book className="w-8 h-8 md:w-10 md:h-10 mx-auto mb-2" />
+                    <div className="text-lg md:text-xl font-bold">짝맞추기</div>
                     <div className="text-xs mt-1">최소 4개 필요</div>
                   </button>
                   
                   <button
                     onClick={() => startGame('spelling', 'current')}
                     disabled={currentWords.length === 0}
-                    className="bg-gradient-to-r from-purple-400 to-pink-500 text-white p-6 rounded-xl hover:shadow-lg transform hover:scale-105 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="bg-gradient-to-r from-cyan-400 to-blue-500 text-white p-4 md:p-6 rounded-xl hover:shadow-lg transform hover:scale-105 transition disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
                   >
-                    <Play className="w-10 h-10 mx-auto mb-2" />
-                    <div className="text-xl font-bold">스펠링</div>
+                    <Play className="w-8 h-8 md:w-10 md:h-10 mx-auto mb-2" />
+                    <div className="text-lg md:text-xl font-bold">스펠링</div>
                     <div className="text-xs mt-1">직접 쓰기</div>
                   </button>
                 </div>
@@ -1070,20 +1075,20 @@ const WordLearningApp = () => {
                   <button
                     onClick={() => startGame('matching', 'review')}
                     disabled={reviewWords.length < 4}
-                    className="bg-gradient-to-r from-orange-400 to-red-500 text-white p-6 rounded-xl hover:shadow-lg transform hover:scale-105 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="bg-gradient-to-r from-blue-400 to-indigo-500 text-white p-4 md:p-6 rounded-xl hover:shadow-lg transform hover:scale-105 transition disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
                   >
-                    <Book className="w-10 h-10 mx-auto mb-2" />
-                    <div className="text-xl font-bold">짝맞추기</div>
+                    <Book className="w-8 h-8 md:w-10 md:h-10 mx-auto mb-2" />
+                    <div className="text-lg md:text-xl font-bold">짝맞추기</div>
                     <div className="text-xs mt-1">최소 4개 필요</div>
                   </button>
                   
                   <button
                     onClick={() => startGame('spelling', 'review')}
                     disabled={reviewWords.length === 0}
-                    className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white p-6 rounded-xl hover:shadow-lg transform hover:scale-105 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="bg-gradient-to-r from-indigo-400 to-purple-500 text-white p-4 md:p-6 rounded-xl hover:shadow-lg transform hover:scale-105 transition disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
                   >
-                    <Play className="w-10 h-10 mx-auto mb-2" />
-                    <div className="text-xl font-bold">스펠링</div>
+                    <Play className="w-8 h-8 md:w-10 md:h-10 mx-auto mb-2" />
+                    <div className="text-lg md:text-xl font-bold">스펠링</div>
                     <div className="text-xs mt-1">직접 쓰기</div>
                   </button>
                 </div>
