@@ -1,6 +1,66 @@
 english,korean,partOfSpeech,phonetic,meanings,example1_en,example1_ko,example2_en,example2_ko,status
-hello,안녕,감탄사,/həˈloʊ/,"인사말|안녕하세요",Hello! How are you?,안녕하세요! 어떻게 지내세요?,Nice to meet you. Hello!,만나서 반가워요. 안녕!,current
-sunny,화창한,형용사,/ˈsʌni/,"햇빛이 비치는|밝고 명랑한|낙관적인",It's a sunny day.,화창한 날이에요.,She has a sunny personality.,그녀는 밝은 성격을 가졌어요.,current
-rainy,비오는,형용사,/ˈreɪni/,"비가 오는|우천의",It's a rainy season.,우기예요.,I like rainy days.,난 비오는 날을 좋아해.,review
-happy,행복한,형용사,/ˈhæpi/,"기쁜|행복한|즐거운",I'm so happy today!,오늘 너무 행복해요!,Happy birthday to you!,생일 축하해요!,current
-apple,사과,명사,/ˈæpəl/,"사과|사과나무",I ate an apple.,나는 사과를 먹었어.,An apple a day keeps the doctor away.,하루 사과 하나면 의사가 필요 없어.,current
+Cram,벼락치기,동사,/kræm/,벼락치기하다|쑤셔넣다|밀어넣다,I cram before the test.,나는 시험 전에 벼락치기해요.,He crammed toys into the box.,그는 장난감을 상자에 쑤셔 넣었어요.,current
+robust,튼튼한,형용사,/roʊˈbʌst/,튼튼한|강한|견고한,This chair is robust.,이 의자는 튼튼해요.,She has a robust health.,그녀는 건강이 튼튼해요.,current
+relief,안도,명사,/rɪˈliːf/,안도|완화|구호,I felt relief after the test.,나는 시험 후에 안도했어요.,The medicine gave relief.,그 약은 통증을 완화했어요.,current
+acquisition,획득,명사,/ˌækwɪˈzɪʃən/,획득|습득|인수,Learning words is an acquisition.,단어를 배우는 것은 습득이에요.,The company made an acquisition.,그 회사는 인수를 했어요.,current
+elasticity,탄력,명사,/ˌiːlæˈstɪsɪti/,탄력성|신축성|유연성,This band has elasticity.,이 고무줄은 탄력이 있어요.,Elasticity helps it return.,탄력은 원래대로 돌아오게 해요.,current
+overhaul,정비,명사,/ˈoʊvərhɔːl/,전면수리|정비|개선,The bike needs an overhaul.,그 자전거는 정비가 필요해요.,We did an overhaul of the plan.,우리는 계획을 전면 개선했어요.,current
+cumulation,누적,명사,/ˌkjuːmjəˈleɪʃən/,누적|축적|증가,The cumulation of points helps.,점수의 누적이 도움이 돼요.,Snow cumulation covered the road.,눈의 누적이 길을 덮었어요.,current
+accumulation,축적,명사,/əˌkjuːmjəˈleɪʃən/,축적|누적|모임,There is accumulation of dust.,먼지의 축적이 있어요.,Savings grow by accumulation.,저축은 누적으로 늘어요.,current
+Uncountable Noun,불가산,명사,/ʌnˈkaʊntəbəl naʊn/,셀수없는명사|불가산명사|양으로재는명사,Water is an uncountable noun.,water는 불가산명사예요.,Rice is an uncountable noun.,rice는 불가산명사예요.,current
+defects,결함,명사,/ˈdiːfekts/,결함|결점|흠,The toy has defects.,그 장난감에는 결함이 있어요.,We fix defects quickly.,우리는 결함을 빨리 고쳐요.,current
+Application,신청,명사,/ˌæplɪˈkeɪʃən/,신청|적용|응용,Fill out the application.,신청서를 작성하세요.,This is an application of math.,이것은 수학의 적용이에요.,current
+Establish,설립,동사,/ɪˈstæblɪʃ/,설립하다|확립하다|세우다,They establish a club.,그들은 동아리를 설립해요.,We establish a rule.,우리는 규칙을 세워요.,current
+Verify,확인,동사,/ˈverɪfaɪ/,확인하다|검증하다|입증하다,Please verify your name.,이름을 확인해 주세요.,We verify the answer.,우리는 정답을 검증해요.,current
+Validity,타당성,명사,/vəˈlɪdəti/,유효성|타당성|효력,Check the validity of the ticket.,표의 유효성을 확인해요.,The validity is clear.,그 타당성은 분명해요.,current
+Supplementation,보충,명사,/ˌsʌplɪmenˈteɪʃən/,보충|추가|보완,Supplementation can help growth.,보충은 성장에 도움돼요.,We need supplementation of water.,우리는 물의 추가가 필요해요.,current
+Shipment,배송,명사,/ˈʃɪpmənt/,선적|배송|화물,The shipment arrived today.,배송이 오늘 도착했어요.,We track the shipment.,우리는 배송을 추적해요.,current
+Reinforce,강화,동사,/ˌriːɪnˈfɔːrs/,강화하다|보강하다|지지하다,We reinforce the bridge.,우리는 다리를 보강해요.,Praise can reinforce effort.,칭찬은 노력을 강화해요.,current
+Fulfillment,성취,명사,/fʊlˈfɪlmənt/,이행|성취|완수,I feel fulfillment after study.,나는 공부 후 성취를 느껴요.,Fulfillment takes practice.,완수에는 연습이 필요해요.,current
+Optimization,최적화,명사,/ˌɑːptɪməˈzeɪʃən/,최적화|개선|효율화,Optimization makes it faster.,최적화는 더 빠르게 해요.,We do optimization of steps.,우리는 단계들을 최적화해요.,current
+capability,능력,명사,/ˌkeɪpəˈbɪləti/,능력|역량|가능성,She has capability in math.,그녀는 수학 능력이 있어요.,This robot has capability.,이 로봇은 능력이 있어요.,current
+Maintenance,유지,명사,/ˈmeɪntənəns/,유지|보수|관리,Maintenance keeps it safe.,유지는 안전하게 해요.,We do maintenance every week.,우리는 매주 보수를 해요.,current
+Preventive,예방,형용사,/prɪˈventɪv/,예방의|방지하는|사전의,Preventive care is good.,예방 관리는 좋아요.,Wash hands as preventive action.,손 씻기는 예방 행동이에요.,current
+failures,실패,명사,/ˈfeɪljərz/,실패|고장|불합격,Failures help us learn.,실패는 우리를 배우게 해요.,Machine failures stop work.,기계 고장은 일을 멈춰요.,current
+Drills,훈련,명사,/drɪlz/,훈련|연습|드릴도구,We do safety drills.,우리는 안전 훈련을 해요.,Fire drills keep us ready.,소방 훈련은 대비하게 해요.,current
+Estimated,추정,형용사,/ˈestɪmeɪtɪd/,추정된|예상된|대략의,The estimated time is two hours.,예상 시간은 두 시간이에요.,The estimated cost is low.,추정 비용은 낮아요.,current
+Conduct,수행,동사,/kənˈdʌkt/,수행하다|실시하다|진행하다,We conduct an experiment.,우리는 실험을 실시해요.,He will conduct the class.,그는 수업을 진행해요.,current
+Commencement,시작,명사,/kəˈmensmənt/,시작|개시|졸업식,The commencement is in March.,시작은 3월이에요.,Commencement means a start.,commencement는 시작이라는 뜻이에요.,current
+vary,변동,동사,/ˈveri/,다르다|변동하다|바꾸다,Prices vary each day.,가격은 매일 변동해요.,Colors vary in the set.,색은 세트마다 달라요.,current
+Proceed,진행,동사,/prəˈsiːd/,진행하다|계속하다|나아가다,We proceed with the game.,우리는 게임을 계속해요.,Proceed to the next step.,다음 단계로 진행하세요.,current
+if applicable,해당,부사,/ɪf ˈæplɪkəbəl/,해당되면|필요하면|조건에맞으면,Write your name if applicable.,해당되면 이름을 쓰세요.,Add a note if applicable.,해당되면 메모를 추가하세요.,current
+absent,결석,형용사,/ˈæbsənt/,결석한|없는|부재한,He is absent today.,그는 오늘 결석했어요.,The cat is absent now.,고양이는 지금 없어요.,current
+Mandatory,의무,형용사,/ˈmændətɔːri/,의무적인|필수의|강제의,Helmets are mandatory.,헬멧은 의무예요.,Homework is mandatory today.,오늘 숙제는 필수예요.,current
+animal-derived,동물유래,형용사,/ˈænɪməl dɪˈraɪvd/,동물유래의|동물에서온|동물기원의,This soap is animal-derived.,이 비누는 동물유래예요.,We avoid animal-derived food.,우리는 동물유래 음식을 피해요.,current
+Nasolabial Fold (NLF),팔자주름,명사,/ˌneɪzoʊˈleɪbiəl foʊld/,팔자주름|코입주름|얼굴주름,The doctor explained the NLF.,의사가 팔자주름을 설명했어요.,NLF is near the mouth.,팔자주름은 입가 근처에 있어요.,current
+Augmentation,증대,명사,/ˌɔːɡmenˈteɪʃən/,증대|증가|확대,Augmentation makes it bigger.,증대는 더 크게 만들어요.,We plan augmentation of skills.,우리는 기술을 증대할 계획이에요.,current
+Gluteal,둔부,형용사,/ˈɡluːtiəl/,둔부의|엉덩이의|둔부관련,Gluteal muscles help you sit.,둔부 근육은 앉는 데 도움돼요.,He felt gluteal pain.,그는 둔부 통증을 느꼈어요.,current
+Diagnosis,진단,명사,/ˌdaɪəɡˈnoʊsɪs/,진단|판단|병명,The doctor made a diagnosis.,의사는 진단을 내렸어요.,Early diagnosis helps.,조기 진단은 도움이 돼요.,current
+compelling,설득력,형용사,/kəmˈpelɪŋ/,설득력있는|강렬한|흥미로운,That story is compelling.,그 이야기는 설득력 있어요.,She gave a compelling reason.,그녀는 설득력 있는 이유를 말했어요.,current
+adoption,채택,명사,/əˈdɑːpʃən/,채택|수용|입양,The adoption of rules helps.,규칙의 채택은 도움이 돼요.,They chose adoption of a pet.,그들은 반려동물 입양을 선택했어요.,current
+availability,가용성,명사,/əˌveɪləˈbɪləti/,가용성|이용가능성|공급상태,Check the availability of seats.,좌석 이용 가능성을 확인해요.,There is no availability today.,오늘은 가용성이 없어요.,current
+supplement,보충,명사,/ˈsʌpləmənt/,보충제|부록|추가,He takes a vitamin supplement.,그는 비타민 보충제를 먹어요.,This page is a supplement.,이 페이지는 부록이에요.,current
+Tangible,유형,형용사,/ˈtændʒəbəl/,유형의|만질수있는|분명한,We see tangible results.,우리는 분명한 결과를 봐요.,The toy is tangible.,그 장난감은 만질 수 있어요.,current
+moonlighter,겸직자,명사,/ˈmuːnlaɪtər/,겸직자|부업하는사람|투잡하는사람,My uncle is a moonlighter.,우리 삼촌은 겸직자예요.,A moonlighter works at night.,겸직자는 밤에 일해요.,current
+bachelor,학사,명사,/ˈbætʃələr/,학사|미혼남|독신,He got a bachelor degree.,그는 학사 학위를 받았어요.,My brother is a bachelor.,내 형은 독신이에요.,current
+day by day,날마다,부사,/deɪ baɪ deɪ/,날마다|하루하루|점점,Day by day I get better.,나는 날마다 더 나아져요.,The plant grows day by day.,식물은 하루하루 자라요.,current
+Period,마침표,명사,/ˈpɪriəd/,마침표|기간|시기,Put a period at the end.,끝에 마침표를 찍어요.,This period is one week.,이 기간은 일주일이에요.,current
+Questions mark,물음표,명사,/ˈkwestʃən mɑːrk/,물음표|의문부호|질문표시,Use a question mark here.,여기에 물음표를 쓰세요.,A question mark shows a question.,물음표는 질문을 보여줘요.,current
+Exclamation mark,느낌표,명사,/ˌekskləˈmeɪʃən mɑːrk/,느낌표|감탄부호|강조표시,Put an exclamation mark.,느낌표를 넣어요.,An exclamation mark shows surprise.,느낌표는 놀람을 보여줘요.,current
+Comma,쉼표,명사,/ˈkɑːmə/,쉼표|구분부호|잠깐쉼,Use a comma in the list.,목록에 쉼표를 써요.,A comma makes a short pause.,쉼표는 잠깐 쉬게 해요.,current
+Colon,콜론,명사,/ˈkoʊlən/,콜론|설명부호|시간표시,Use a colon in time.,시간에 콜론을 써요.,A colon can introduce a list.,콜론은 목록을 시작할 수 있어요.,current
+Semicolon,세미콜론,명사,/ˈsemiˌkoʊlən/,세미콜론|연결부호|문장구분,Use a semicolon in writing.,글에서 세미콜론을 써요.,A semicolon links ideas.,세미콜론은 생각을 이어줘요.,current
+Double quotation,큰따옴표,명사,/ˈdʌbəl kwoʊˈteɪʃən/,큰따옴표|인용부호|대화표시,Use double quotation for speech.,말을 적을 때 큰따옴표를 써요.,Double quotation shows a quote.,큰따옴표는 인용을 보여줘요.,current
+Single quotation,작은따옴표,명사,/ˈsɪŋɡəl kwoʊˈteɪʃən/,작은따옴표|인용부호|강조표시,Use single quotation inside quotes.,인용 안에 작은따옴표를 써요.,Single quotation can show a word.,작은따옴표는 단어를 보여줘요.,current
+Hyphen,하이픈,명사,/ˈhaɪfən/,하이픈|연결부호|붙임표,Use a hyphen in well-known.,well-known에 하이픈을 써요.,A hyphen joins two words.,하이픈은 두 단어를 이어요.,current
+Apostrophe,아포스트로피,명사,/əˈpɑːstrəfi/,어포스트로피|소유표시|줄임표시,Use an apostrophe in Tom's.,Tom's에 아포스트로피를 써요.,An apostrophe shows missing letters.,아포스트로피는 줄임을 보여줘요.,current
+Dasy,대시,명사,/dæʃ/,대시|삽입부호|범위표시,Use a dash for extra words.,추가 말에 대시를 써요.,A dash can show a range.,대시는 범위를 나타낼 수 있어요.,current
+Ellipsis,말줄임표,명사,/ɪˈlɪpsɪs/,말줄임표|생략표시|여운표시,Use an ellipsis to show missing.,생략을 보여줄 때 말줄임표를 써요.,An ellipsis shows you stop.,말줄임표는 멈춤을 보여줘요.,current
+Parenthesis,괄호,명사,/pəˈrenθəsɪs/,괄호|부가설명|보충정보,Put the word in parenthesis.,단어를 괄호에 넣어요.,Parenthesis adds extra info.,괄호는 정보를 더해요.,current
+Bracket,대괄호,명사,/ˈbrækɪt/,대괄호|표기부호|묶음표시,Use a bracket in notes.,메모에 대괄호를 써요.,Brackets can group things.,대괄호는 묶어줘요.,current
+Brace,중괄호,명사,/breɪs/,중괄호|묶음표시|수식표시,Use a brace in math.,수학에서 중괄호를 써요.,A brace groups lines.,중괄호는 줄을 묶어요.,current
+discrepancy,불일치,명사,/dɪˈskrepənsi/,불일치|차이|모순,There is a discrepancy in scores.,점수에 불일치가 있어요.,We found a discrepancy.,우리는 차이를 찾았어요.,current
+subject to,종속,형용사,/ˈsʌbdʒekt tuː/,대상이되는|영향받는|따르는,The game is subject to rules.,게임은 규칙의 대상이에요.,Plans are subject to change.,계획은 변경의 영향을 받아요.,current
+Turbulent,격동의,형용사,/ˈtɜːrbjələnt/,격동의|혼란한|거친,The sea is turbulent today.,오늘 바다는 거칠어요.,He had a turbulent week.,그는 혼란한 한 주를 보냈어요.,current
+volatility,변동성,명사,/ˌvɑːləˈtɪləti/,변동성|불안정|급변,Volatility makes prices jump.,변동성은 가격을 뛰게 해요.,High volatility is risky.,높은 변동성은 위험해요.,current
+Interruption,중단,명사,/ˌɪntəˈrʌpʃən/,중단|방해|끊김,An interruption stopped the song.,중단이 노래를 멈췄어요.,Please avoid interruption.,방해를 피해주세요.,current
