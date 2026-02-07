@@ -1112,45 +1112,47 @@ const WordLearningApp = () => {
     const sessionTitle = sessionType === 'current' ? '이번 주 단어' : '복습 단어';
     
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-400 to-blue-500 p-8 flex items-center justify-center">
-        <div className="bg-white rounded-3xl shadow-2xl p-12 max-w-2xl w-full">
-          {/* 헤더 + 뒤로가기 버튼 */}
-          <div className="flex justify-between items-center mb-8">
+      <div className="min-h-screen bg-gradient-to-br from-green-400 to-blue-500 p-4 md:p-8 flex items-center justify-center">
+        <div className="bg-white rounded-2xl md:rounded-3xl shadow-2xl p-6 md:p-12 max-w-2xl w-full">
+          {/* 헤더 - 뒤로가기 버튼 왼쪽 상단 */}
+          <div className="mb-6">
             <button
               onClick={() => setGameMode('menu')}
-              className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition font-bold"
+              className="bg-gray-500 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg hover:bg-gray-600 transition font-bold text-sm md:text-base"
             >
               ← 뒤로가기
             </button>
-            <div className="text-lg text-purple-600 font-bold">
+          </div>
+          
+          {/* 타이틀 - 센터 */}
+          <div className="text-center mb-6">
+            <div className="text-lg md:text-xl text-purple-600 font-bold mb-4">
               {sessionTitle} - 짝맞추기
             </div>
-            <div className="w-24"></div> {/* 균형 맞추기용 */}
-          </div>
-
-          <div className="text-center mb-8">
-            <div className="text-xl text-gray-600 mb-2">
+            <div className="text-base md:text-xl text-gray-600 mb-2">
               문제 {currentWordIndex + 1} / {words.length}
             </div>
-            <div className="text-2xl font-bold text-gray-800 mb-4">
+            <div className="text-xl md:text-2xl font-bold text-gray-800">
               점수: {score} / {totalAttempts}
             </div>
           </div>
 
-          <div className="mb-12 p-8 bg-gradient-to-r from-green-100 to-blue-100 rounded-2xl">
+          {/* 문제 카드 */}
+          <div className="mb-8 p-6 md:p-8 bg-gradient-to-r from-green-100 to-blue-100 rounded-xl md:rounded-2xl">
             <div className="text-center">
-              <div className="text-lg text-gray-600 mb-2">이 뜻의 영어 단어는?</div>
-              <div className="text-5xl font-bold text-gray-800">{currentWord.korean}</div>
+              <div className="text-sm md:text-lg text-gray-600 mb-2">이 뜻의 영어 단어는?</div>
+              <div className="text-3xl md:text-5xl font-bold text-gray-800">{currentWord.korean}</div>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 mb-8">
+          {/* 선택지 - 세로 배치 (모바일 최적화) */}
+          <div className="space-y-3 md:space-y-4 mb-8">
             {matchingOptions.map((word) => (
               <button
                 key={word.id}
                 onClick={() => checkMatching(word)}
                 disabled={showFeedback}
-                className="bg-white border-4 border-blue-300 p-6 rounded-2xl text-2xl font-bold text-gray-800 hover:bg-blue-50 hover:border-blue-500 transform hover:scale-105 transition disabled:opacity-50"
+                className="w-full bg-white border-4 border-blue-300 p-4 md:p-6 rounded-xl md:rounded-2xl text-lg md:text-2xl font-bold text-gray-800 hover:bg-blue-50 hover:border-blue-500 transform hover:scale-105 transition disabled:opacity-50 touch-manipulation break-words"
               >
                 {word.english}
               </button>
@@ -1159,7 +1161,7 @@ const WordLearningApp = () => {
 
           {showFeedback && (
             <div className="text-center space-y-4">
-              <div className="text-3xl font-bold text-purple-600 animate-bounce">
+              <div className="text-2xl md:text-3xl font-bold text-purple-600 animate-bounce">
                 {feedback}
               </div>
               {feedback.includes('아니에요') && (
@@ -1174,7 +1176,7 @@ const WordLearningApp = () => {
                       setGameMode('result');
                     }
                   }}
-                  className="bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-bold hover:bg-orange-600 transition"
+                  className="bg-orange-500 text-white px-6 py-3 md:px-8 md:py-3 rounded-full text-base md:text-lg font-bold hover:bg-orange-600 transition touch-manipulation"
                 >
                   ⏭️ 이 단어 넘어가기
                 </button>
@@ -1193,46 +1195,48 @@ const WordLearningApp = () => {
     const sessionTitle = sessionType === 'current' ? '이번 주 단어' : '복습 단어';
     
     return (
-      <div className="min-h-screen bg-gradient-to-br from-cyan-400 to-teal-500 p-8 flex items-center justify-center">
-        <div className="bg-white rounded-3xl shadow-2xl p-12 max-w-2xl w-full">
-          {/* 헤더 + 뒤로가기 버튼 */}
-          <div className="flex justify-between items-center mb-8">
+      <div className="min-h-screen bg-gradient-to-br from-cyan-400 to-teal-500 p-4 md:p-8 flex items-center justify-center">
+        <div className="bg-white rounded-2xl md:rounded-3xl shadow-2xl p-6 md:p-12 max-w-2xl w-full">
+          {/* 헤더 - 뒤로가기 버튼 왼쪽 상단 */}
+          <div className="mb-6">
             <button
               onClick={() => setGameMode('menu')}
-              className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition font-bold"
+              className="bg-gray-500 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg hover:bg-gray-600 transition font-bold text-sm md:text-base"
             >
               ← 뒤로가기
             </button>
-            <div className="text-lg text-orange-600 font-bold">
+          </div>
+          
+          {/* 타이틀 - 센터 */}
+          <div className="text-center mb-6">
+            <div className="text-lg md:text-xl text-teal-600 font-bold mb-4">
               {sessionTitle} - 스펠링 쓰기
             </div>
-            <div className="w-24"></div> {/* 균형 맞추기용 */}
-          </div>
-
-          <div className="text-center mb-8">
-            <div className="text-xl text-gray-600 mb-2">
+            <div className="text-base md:text-xl text-gray-600 mb-2">
               문제 {currentWordIndex + 1} / {words.length}
             </div>
-            <div className="text-2xl font-bold text-gray-800 mb-4">
+            <div className="text-xl md:text-2xl font-bold text-gray-800">
               점수: {score} / {totalAttempts}
             </div>
           </div>
 
-          <div className="mb-8 p-8 bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl">
+          {/* 문제 카드 */}
+          <div className="mb-6 md:mb-8 p-6 md:p-8 bg-gradient-to-r from-cyan-100 to-teal-100 rounded-xl md:rounded-2xl">
             <div className="text-center">
-              <div className="text-lg text-gray-600 mb-4">이 뜻의 스펠링을 써보세요</div>
-              <div className="text-5xl font-bold text-gray-800 mb-6">{currentWord.korean}</div>
+              <div className="text-sm md:text-lg text-gray-600 mb-4">이 뜻의 스펠링을 써보세요</div>
+              <div className="text-3xl md:text-5xl font-bold text-gray-800 mb-6">{currentWord.korean}</div>
               <button
                 onClick={() => speakWord(currentWord.english)}
-                className="bg-blue-500 text-white px-6 py-3 rounded-full hover:bg-blue-600 transition flex items-center gap-2 mx-auto"
+                className="bg-blue-500 text-white px-4 py-2 md:px-6 md:py-3 rounded-full hover:bg-blue-600 transition flex items-center gap-2 mx-auto touch-manipulation text-sm md:text-base"
               >
-                <Volume2 className="w-5 h-5" />
+                <Volume2 className="w-4 h-4 md:w-5 md:h-5" />
                 발음 듣기
               </button>
             </div>
           </div>
 
-          <div className="mb-8">
+          {/* 입력 필드 */}
+          <div className="mb-6 md:mb-8">
             <input
               type="text"
               value={userAnswer}
@@ -1240,7 +1244,7 @@ const WordLearningApp = () => {
               onKeyPress={(e) => e.key === 'Enter' && !showFeedback && checkSpelling()}
               placeholder="여기에 영어 단어를 입력하세요"
               disabled={showFeedback}
-              className="w-full px-6 py-4 border-4 border-purple-300 rounded-2xl text-3xl text-center font-bold focus:outline-none focus:border-purple-500 disabled:opacity-50"
+              className="w-full px-4 py-3 md:px-6 md:py-4 border-4 border-cyan-300 rounded-xl md:rounded-2xl text-xl md:text-3xl text-center font-bold focus:outline-none focus:border-cyan-500 disabled:opacity-50 touch-manipulation"
               autoFocus
             />
           </div>
@@ -1248,7 +1252,7 @@ const WordLearningApp = () => {
           {!showFeedback && (
             <button
               onClick={checkSpelling}
-              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-4 rounded-2xl text-2xl font-bold hover:shadow-lg transform hover:scale-105 transition"
+              className="w-full bg-gradient-to-r from-cyan-500 to-teal-500 text-white py-3 md:py-4 rounded-xl md:rounded-2xl text-lg md:text-2xl font-bold hover:shadow-lg transform hover:scale-105 transition touch-manipulation"
             >
               확인하기
             </button>
