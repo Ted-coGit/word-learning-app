@@ -474,13 +474,20 @@ const WordLearningApp = () => {
 
   // GitHub 불러오기 모드 선택
   const showGitHubLoadOptions = () => {
-    const mode = window.confirm(
-      '어떻게 불러올까요?\n\n' +
-      '확인 = 기존 단어에 추가\n' +
-      '취소 = 완전히 새로 시작 (기존 단어 삭제)'
+    const confirm = window.confirm(
+      '⚠️ 새로고침 하시겠습니까?\n\n' +
+      '기존 로컬 데이터가 모두 삭제되고\n' +
+      'GitHub의 최신 데이터로 완전히 교체됩니다.'
     );
     
-    loadFromGitHub(mode ? 'add' : 'replace');
+    if (confirm) {
+      // localStorage 완전 초기화
+      localStorage.removeItem(`${currentUser}_currentWords`);
+      localStorage.removeItem(`${currentUser}_reviewWords`);
+      
+      // GitHub에서 완전 교체
+      loadFromGitHub('replace');
+    }
   };
 
   // 발음 재생 (Web Speech API)
